@@ -1,0 +1,6 @@
+<% if !loggedin? %>
+<%= button_to "Signin", auth_signin_path, method: :get %>
+<%= button_to "Signup", auth_signup_path, method: :get %>
+<% else %>
+<%= button_to "Logout", session_destroy_path, method: :post %>
+<% end %>

@@ -1,0 +1,31 @@
+<style>
+.card {
+  box-shadow: 2px 14px 38px -24px rgba(0,0,0,0.51);
+  border: none;
+}
+</style>
+<div class="container-fluid bg-light-subtle d-flex align-items-center justify-content-center" style="height: 90vh;">
+<div class="container">
+<div class="row">
+<div class="col-4"></div>
+<div class="col-4">
+<div class="card p-5">
+<h1 class="text-center">Sign Up</h1>
+<%= form_with(model: @authuser, local:true) do |form| %>
+    <div class="d-flex justify-content-center flex-column form-group gap-2 mb-2 mt-2">
+        <%= form.label :username %>
+        <%= form.text_field :username, class: "rounded-1 ps-2 pe-2", style: "border: 1px solid grey; outline: none; height: 40px;" %>
+    </div>
+
+    <div class="d-flex justify-content-center flex-column form-group gap-2 mb-2">
+    <%= form.label :email %>
+    <%= form.text_field :email, class: "rounded-1 ps-2 pe-2", style: "border: 1px solid grey; outline: none; height: 40px;" %>
+    </div>
+    <div class="d-flex justify-content-center flex-column form-group gap-2 mb-2">
+        <%= form.label :password %><br>
+        <%= form.password_field :password, class: "rounded-1 ps-2 pe-2", style: "border: 1px solid grey; outline: none; height: 40px;" %>
+    </div>
+    <div class="d-flex justify-content-center"> 
+        <%= form.submit "Submit", formaction: auth_signup_submit_path(@authuser), formmethod: :post,  class: "btn btn-success mt-2" %>
+    </div>
+<% end %>

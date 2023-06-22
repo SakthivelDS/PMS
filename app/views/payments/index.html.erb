@@ -1,0 +1,44 @@
+
+<h1 class="text-center mt-5 text-success" style="font-size: 48px;">PAYMENTS</h1>
+<div class="" style="margin-left: 20px;">
+  <%= link_to 'New Payment', new_payment_path, class: "btn btn-success text-white rounded-1" %>
+</div>
+<div class="p-3 pt-1">
+<table class="table table-hover mt-4">
+<thead>
+    <tr class="table-success">
+       <th class="text-center">Payment ID</th>
+       <th class="text-center">Requested By</th> 
+       <th class="text-center">Request Made</th> 
+       <th class="text-center">Approval user</th>
+       <th class="text-center">Approved</th>
+       <th class="text-center">Approved By</th>
+       <th class="text-center">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payments.each do |payment| %>
+      <tr>
+        <td class="text-center pt-3"><%= payment.payment_no %></td>
+        <td class="text-center pt-3"><%= payment.requested_user.capitalize %></td>
+        <td class="text-center pt-3"><%= time_ago_in_words(payment.created_at) %></td>
+        <td class="text-center pt-3"><%= payment.approval_user.capitalize %></td>
+        <td class="text-center pt-3"><%= payment.approved? ? "Yes" : "No" %></td>
+        <td class="text-center pt-3"><%= payment.approved_user ? payment.approved_user.capitalize : '' %></td>
+        <td class="<%= (payment.approved || payment.requested_user != current_user.username)  ? 'text-center' : ' d-flex justify-content-center btn-group' %> " role="group">
+          <% if payment.approved || payment.requested_user != current_user.username  %>
+            <%= link_to 'Show', payment, class:"btn btn-success text-white" %>
+          <% elsif payment.requested_user == current_user.username %>
+            <%= link_to 'Show', payment, class:"btn btn-success text-white p-0 pt-1 pb-1" %>
+            <%= link_to 'Edit', edit_payment_path(payment), class:"btn btn-warning p-0 pt-1 pb-1 text-white" %>
+            <%= link_to 'Delete', payment, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger text-white p-0 pt-1 pb-1" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<br>
+

@@ -1,0 +1,62 @@
+<div class="container-fluid bg-light-subtle d-flex align-items-center justify-content-center" style="height: 90vh;">
+<div class="row" style="width: 100%">
+<div class="col-3"></div>
+<div class="col-6 pt-5 pb-5">
+  <div class="container">
+  <div class="card pt-3" style="box-shadow: 7px 7px 21px -5px rgba(0,0,0,0.38); border: none;">
+  <div class="card-body d-flex flex-column justify-content-center">
+  <% colors = ["6ab7ff", "a2cc6a", "ff94b6", "d395ff", "ffe56a"] %>
+  <div class="d-flex justify-content-center gap-5 " style="width: 90%">
+  <div class="d-flex justify-content-center">
+  <img src='https://ui-avatars.com/api/?name=<%= @user_detail.username %>&background=<%= colors[rand(5)] %>&color=fff&size=300' class="img-thumbnail" height=120 width=120>
+  </div>
+  <span class="d-flex flex-column justify-content-center">
+    <span class="d-flex align-items-center ">
+    <h1 class="card-title mt-2" style="letter-spacing:1px">
+    
+    <%= @user_detail.username.capitalize %>
+    </h1>&nbsp;
+    <h3 style="margin-top: 10px;">
+    <%= @user_detail.admin ? "(Admin)" : "" %></h3>
+  </span>
+  <h5 style="margin-top: -5px; font-weight: 300; letter-spacing:1px">
+  <%= @user_detail.email %>
+  </h5>
+  </span>
+  </div>
+  <div class="d-flex justify-content-end mb-1">
+  <%= link_to "Request Payment", new_payment_path , class: "btn btn-success text-white mt-4 me-2", style: "font-size: 14px;" %>
+  </div>
+  <div style="heigth: 300px; max-height: 350px; overflow-y: auto;">
+  <% if @user_detail.payments.count > 0 %>
+  <table class="table table-hover mt-4">
+  <thead>
+    <tr class="table-success">
+      <th class="text-center">Payment ID</th>
+      <th class="text-center">Requested User</th>
+      <th class="text-center">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+ 
+  <% @user_detail.payments.each do |payment| %>
+  <tr>
+    <td class="text-center pt-3"  ><%= payment.payment_no %></td>
+    <td class="text-center pt-3"  ><%= payment.requested_user.capitalize %></td>
+    <td class="text-center"><%= button_to payment.approved? ? "Approved" : "Approve",approve_payment_by_user_path(payment), method: :post, class: payment.approved? ? "btn btn-success disabled" : "btn btn-primary" %></td>
+  </tr>
+  <% end %>
+  </tbody>
+  </table>
+  <% else %>
+  <div class="d-flex flex-column justify-content-center align-items-center mt-5 mb-3 pt-3 pb-3" style="border-top: 1px solid lightgrey; border-bottom: 1px solid lightgrey"><h5> No Payment Requests Found..</h5> </div>
+  <% end %>
+  </div>
+  </div>
+  </div>
+  </div>
+</div>
+<div class="col-3"></div>
+</div>
+
+</div>

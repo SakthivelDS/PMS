@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Username:</strong>
+  <%= @authuser.username %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @authuser.email %>
+</p>
+
+
+
+<p>
+  <strong>Approved:</strong>
+  <%= @authuser.approved %>
+</p>
+
+<p>
+  <strong>Approved by:</strong>
+  <%= @authuser.user_detail.username %>
+</p>
+
+<%= link_to 'Edit', edit_authuser_path(@authuser) %> |
+<%= link_to 'Back', authusers_path %>
